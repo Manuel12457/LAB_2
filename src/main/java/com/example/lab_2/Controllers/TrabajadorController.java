@@ -27,14 +27,19 @@ public class TrabajadorController {
     @GetMapping("/listar")
     public String listarTrabajador(Model model) {
         List<Trabajador> trabajadorList = trabajadorRepository.findAll();
-        model.addAttribute("trabajadoresList", trabajadorList);
+        model.addAttribute("trabajadorList", trabajadorList);
         return "trabajador/lista";
+    }
+
+    @GetMapping("/newform")
+    public String newform() {
+        return "trabajador/newForm";
     }
 
     @PostMapping("/save")
     public String saveTrabajador(Trabajador trabajador, RedirectAttributes attributes) {
         trabajadorRepository.save(trabajador);
-        attributes.addFlashAttribute("msg","Transportista creado exitosamente");
+        attributes.addFlashAttribute("msg","Trabajador creado exitosamente");
         return "redirect:/trabajador/listar";
     }
 
