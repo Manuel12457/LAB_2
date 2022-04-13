@@ -31,8 +31,8 @@
         </ul>
     </nav>
 
-    <h2 class="pb-2 pt-2 border-bottom">Lista de Usuarios</h2>
-    <a class="btn btn-primary mt-4 mb-4" th:href="@{/usuario/newform}">Nuevo Usuario</a>
+    <h2 class="pb-2 pt-2 border-bottom">Lista de Trabajadores</h2>
+    <a class="btn btn-primary mt-4 mb-4" th:href="@{/trabajadores/newform}">Nuevo Trabajador</a>
     <table class="table table-sm">
         <tr>
             <th>#</th>
@@ -47,10 +47,10 @@
             <td th:text="${i.index + 1}"></td>
             <td th:text="${trabajador.id}"></td>
             <td th:text="${trabajador.correo}"></td>
-            <td th:text="${usuario.nombres}"></td>
-            <td th:text="${usuario.apellidos}"></td>
-            <td><a class="btn btn-primary" th:href="@{'/usuario/editar?id=' + ${trabajador.id}}">Editar</a></td>
-            <td><a class="btn btn-danger" th:href="@{'/usuario/borrar?id=' + ${trabajador.id}}">Borrar</a></td>
+            <td th:text="${trabajador.nombres}"></td>
+            <td th:text="${trabajador.apellidos}"></td>
+            <td><a class="btn btn-primary" th:href="@{'/trabajador/editar?id=' + ${trabajador.id}}">Editar</a></td>
+            <td><a class="btn btn-danger" th:href="@{'/trabajador/borrar?id=' + ${trabajador.id}}">Borrar</a></td>
         </tr>
     </table>
 </div>
