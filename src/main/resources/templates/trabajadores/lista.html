@@ -23,16 +23,40 @@
                 <a class="nav-link" th:href="@{/tipo}">Tipos de Equipo</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" th:href="@{/sede}">Sedes</a>
+                <a class="nav-link" th:href="@{/sede/listar}">Sedes</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link active" th:href="@{/trabajador}">Trabajadores</a>
+                <a class="nav-link active" th:href="@{/trabajador/listar}">Trabajadores</a>
             </li>
         </ul>
     </nav>
 
     <h2 class="pb-2 pt-2 border-bottom">Lista de Trabajadores</h2>
-    <a class="btn btn-primary mt-4 mb-4" th:href="@{/trabajadores/newform}">Nuevo Trabajador</a>
+    <a class="btn btn-primary mt-4 mb-4" th:href="@{/trabajador/newform}">Nuevo Trabajador</a>
+
+    <div class="alert alert-success alert-dismissible fade show" role="alert" th:if="${(msg != null) && (msg == '0')}">
+        <strong>Trabajador agregado exitosamente</strong>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+    <div class="alert alert-warning alert-dismissible fade show" role="alert" th:if="${(msg != null) && (msg == '1')}">
+        <strong>Trabajador actualizado exitosamente</strong>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+    <div class="alert alert-danger alert-dismissible fade show" role="alert" th:if="${(msg != null) && (msg == '2')}">
+        <strong>Trabajador borrado exitosamente</strong>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+    <div class="alert alert-danger alert-dismissible fade show" role="alert" th:if="${(msg != null) && (msg == '-1')}">
+        <strong>Ocurrio un error al momento de querer editar</strong>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+    <div class="alert alert-danger alert-dismissible fade show" role="alert" th:if="${(msg != null) && (msg == '-2')}">
+        <strong>Ocurrio un error al momento de querer borrar</strong>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+
+
+
     <table class="table table-sm">
         <tr>
             <th>#</th>
@@ -43,7 +67,7 @@
             <th></th>
             <th></th>
         </tr>
-        <tr th:each="trabajador,i : ${trabajadoresList}">
+        <tr th:each="trabajador,i : ${trabajadorList}">
             <td th:text="${i.index + 1}"></td>
             <td th:text="${trabajador.id}"></td>
             <td th:text="${trabajador.correo}"></td>

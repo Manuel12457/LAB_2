@@ -1,6 +1,8 @@
 package com.example.lab_2.Controllers;
 
 
+import com.example.lab_2.entity.Sede;
+import com.example.lab_2.repository.SedeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import com.example.lab_2.entity.Trabajador;
 import com.example.lab_2.repository.TrabajadorRepository;
@@ -14,6 +16,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.hibernate.engine.jdbc.env.spi.JdbcEnvironment;
 
 import java.util.List;
 import java.util.Optional;
@@ -24,35 +27,36 @@ public class TrabajadorController {
     @Autowired
     TrabajadorRepository trabajadorRepository;
 
+    @Autowired
+    SedeRepository sedeRepository;
+
     @GetMapping("/listar")
     public String listarTrabajador(Model model) {
         List<Trabajador> trabajadorList = trabajadorRepository.findAll();
         model.addAttribute("trabajadorList", trabajadorList);
-        return "trabajador/lista";
+        return "/trabajadores/lista";
     }
 
     @GetMapping("/newform")
-    public String newform() {
-        return "trabajador/newForm";
+    public String newform(Model model) {
+        List<Sede> listaSedes = sedeRepository.findAll();
+        model.addAttribute("listaSedes",listaSedes);
+        return "trabajadores/newform";
     }
 
     @PostMapping("/save")
-    public String saveTrabajador(Trabajador trabajador, RedirectAttributes attributes) {
+    public String saveTrabajador(RedirectAttributes a, Trabajador trabajador) {
+        Optional<Trabajador> optionalTrabajador = trabajadorRepository.findById(trabajador.getId());
+        if (!optionalTrabajador.isPresent() ) { //Hay que crear
+            a.addFlashAttribute("msg", "0");
+        } else { //Hay que actualizar
+            a.addFlashAttribute("msg", "1");
+        }
         trabajadorRepository.save(trabajador);
-        attributes.addFlashAttribute("msg","Trabajador creado exitosamente");
         return "redirect:/trabajador/listar";
     }
 
-    @PostMapping("/update")
-    public String updateTrabajador(Trabajador trabajadorForm) {
-        Optional<Trabajador> optionalTrabajador = trabajadorRepository.findById(trabajadorForm.getId());
-        if (optionalTrabajador.isPresent()) {
-            Trabajador TrabajadorFromDb = optionalTrabajador.get();
-            TrabajadorFromDb.setIdsede(trabajadorForm.getIdsede());
-            trabajadorRepository.save(TrabajadorFromDb);
-        }
-        return "redirect:/trabajador/listar";
-    }
+
 
     @GetMapping("/editar")
     public String editarForm(@RequestParam("id") String id, Model model) {
@@ -60,17 +64,22 @@ public class TrabajadorController {
         if (optionalTrabajador.isPresent()) {
             Trabajador trabajador = optionalTrabajador.get();
             model.addAttribute("trabajador", trabajador);
-            return "trabajador/editForm";
+            List<Sede> listaSedes = sedeRepository.findAll();
+            model.addAttribute("listaSedes",listaSedes);
+            return "trabajadores/editar";
         } else {
             return "redirect:/trabajador/listar";
         }
     }
 
     @GetMapping("/borrar")
-    public String borrar(@RequestParam("id") String id) {
+    public String borrar(@RequestParam("id") String id, RedirectAttributes a) {
         Optional<Trabajador> optionalTrabajador = trabajadorRepository.findById(id);
         if (optionalTrabajador.isPresent()) {
+            a.addFlashAttribute("msg", "2"); //Trabajador borrada exitosamente
             trabajadorRepository.deleteById(id);
+        } else {
+            a.addFlashAttribute("msg", "-2"); //Ocurrio un error al momento de querer borrar
         }
         return "redirect:/trabajador/listar";
     }
