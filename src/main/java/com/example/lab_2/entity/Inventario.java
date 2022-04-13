@@ -8,22 +8,22 @@ public class Inventario {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "idinventario", nullable = false)
-    private Integer id;
+    private int id;
 
     @Column(name = "nombre")
     private String nombre;
 
     @Column(name = "idtipo", nullable = false)
-    private Integer idtipo;
+    private int idtipo;
 
     @Column(name = "numeroserie")
     private String numeroserie;
 
     @Column(name = "idsede", nullable = false)
-    private Integer idsede;
+    private int idsede;
 
     @Column(name = "idmarca", nullable = false)
-    private Integer idmarca;
+    private int idmarca;
 
     @Column(name = "estado")
     private String estado;

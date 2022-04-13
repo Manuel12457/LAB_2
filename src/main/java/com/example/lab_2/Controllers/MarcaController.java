@@ -34,9 +34,8 @@ public class MarcaController {
     }
 
     @PostMapping("/save")
-    public String saveShip(Marca marca, RedirectAttributes a, Model model) {
+    public String saveMarca(Marca marca, RedirectAttributes a, Model model) {
 
-        System.out.println(marca.getId());
         if (marca.getId() == 0) { //Hay que crear
             a.addFlashAttribute("msg", "0");
         } else { //Hay que actualizar

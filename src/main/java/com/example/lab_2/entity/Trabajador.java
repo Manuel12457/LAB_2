@@ -19,7 +19,7 @@ public class Trabajador {
     private String correo;
 
     @Column(name = "idsede", nullable = false)
-    private Integer idsede;
+    private int idsede;
 
     public Integer getIdsede() {
         return idsede;
