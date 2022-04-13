@@ -8,7 +8,7 @@ public class Marca {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "idmarca", nullable = false)
-    private Integer id;
+    private int id;
 
     @Column(name = "nombre")
     private String nombre;
