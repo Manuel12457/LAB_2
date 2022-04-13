@@ -12,6 +12,26 @@
 <div class="container">
     <h2 class="pb-2 pt-2 border-bottom">Lista de Sedes</h2>
     <a class="btn btn-primary mt-4 mb-4" th:href="@{/sede/newform}">Nueva Sede</a>
+    <div class="alert alert-success alert-dismissible fade show" role="alert" th:if="${(msg != null) && (msg == '0')}">
+        <strong>Sede agregada exitosamente</strong>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+    <div class="alert alert-warning alert-dismissible fade show" role="alert" th:if="${(msg != null) && (msg == '1')}">
+        <strong>Sede actualizada exitosamente</strong>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+    <div class="alert alert-danger alert-dismissible fade show" role="alert" th:if="${(msg != null) && (msg == '2')}">
+        <strong>Sede borrada exitosamente</strong>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+    <div class="alert alert-danger alert-dismissible fade show" role="alert" th:if="${(msg != null) && (msg == '-1')}">
+        <strong>Ocurrio un error al momento de querer editar</strong>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+    <div class="alert alert-danger alert-dismissible fade show" role="alert" th:if="${(msg != null) && (msg == '-2')}">
+        <strong>Ocurrio un error al momento de querer borrar</strong>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
     <table class="table table-sm">
         <tr>
             <th>#</th>
