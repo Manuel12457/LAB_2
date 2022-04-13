@@ -1,4 +1,9 @@
-package com.example.lab_2.repository;
+import com.example.lab2.Entity.Tipos;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.stereotype.Repository;
+import java.util.List;
 
-public interface TiposRepository {
+@Repository
+public interface TiposRepository extends JpaRepository<Tipos,Integer> {
 }
